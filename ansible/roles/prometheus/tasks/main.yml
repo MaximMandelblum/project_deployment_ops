@@ -1,0 +1,16 @@
+---
+- name: copy prometheus template
+  copy:
+    dest: /home/ubuntu/
+    src: compose
+    mode: '0755'
+
+- name: copy new prometheus config
+  template:
+    src: prometheus.yml.j2
+    dest: /home/ubuntu/compose/prometheus/prometheus.yml
+
+- name: Run container
+  shell:
+    cmd: "docker-compose up -d"
+    chdir: /home/ubuntu/compose
