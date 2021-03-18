@@ -14,3 +14,10 @@
   shell:
     cmd: "docker-compose up -d"
     chdir: /home/ubuntu/compose
+
+- name: copy consul prometheus service  template
+  copy:
+    dest: /etc/consul.d/kibana.json
+    src: prom.json
+    mode: '0755'
+  notify: restart consul service
