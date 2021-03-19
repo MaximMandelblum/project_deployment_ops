@@ -4,7 +4,7 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
     - targets: ['localhost:9090']
-    
+
   - job_name: 'node_exporter'
     consul_sd_configs:
       - server: {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:8500
@@ -24,7 +24,7 @@ scrape_configs:
     consul_sd_configs:
       - server: {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:8500
         services: 
-          - node_exporter
+          - consul
     relabel_configs:
       - source_labels: ['__address__']
         target_label: '__address__'

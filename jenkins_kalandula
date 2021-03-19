@@ -11,6 +11,13 @@ node("linux1"){
             container = customImage.run('-p 5000:5000')
         }
         
+        stage('Scan') {
+            echo "Scanning image $customImage.id"
+            sh "trivy image --timeout 5m --exit-code=0 --severity CRITICAL,HIGH  $customImage.id"
+            sh "trivy image --timeout 5m --exit-code=0 --severity UNKNOWN,LOW,MEDIUM --ignore-unfixed $customImage.id"
+            
+        }
+        
         stage('Test Docker Image ') {
              
              sh 'sleep 10'
@@ -31,7 +38,7 @@ node("linux1"){
          }
     
         stage("Get the App Yaml file ") {
-            git 'https://github.com/MaximMandelblum/Final_project.git'
+            git 'https://github.com/MaximMandelblum/project_deployment_ops.git'
         }
           
         stage('Deploy pod'){

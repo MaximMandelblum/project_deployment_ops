@@ -5,7 +5,7 @@ metadata:
   annotations:
     kubernetes.io/change-cause: "First release kalandula"
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: kalandula
@@ -14,6 +14,19 @@ spec:
       labels:
         app: kalandula
     spec:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: zone
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: kalandula
+      - maxSkew: 1
+        topologyKey: node
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app: kalandula
       containers:
       - name: kalandula
         image: 6037159/jenkins-test:latest
