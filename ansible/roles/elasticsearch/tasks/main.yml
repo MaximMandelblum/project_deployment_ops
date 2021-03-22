@@ -48,3 +48,10 @@
   service:
    name: elasticsearch
    state: started
+
+- name: copy consul elastic service  template
+  copy:
+    dest: /etc/consul.d/kibana.json
+    src: kibana.json
+    mode: '0755'
+  notify: restart consul service
