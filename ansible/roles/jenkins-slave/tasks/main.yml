@@ -9,4 +9,23 @@
   pip:
     name: 'awscli'
     state: latest
-    
+- name: Install Helm and Repositiories 
+  command: "{{ item }}"
+  with_items:
+      - sudo -i
+      - curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+      - chmod 700 get_helm.sh
+      - ./get_helm.sh
+      - helm repo add hashicorp https://helm.releases.hashicorp.com
+      - helm repo add bitnami https://charts.bitnami.com/bitnami
+- name: install trivy 
+  command: "{{ item }}"
+  with_items:
+      - sudo -i
+      - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.16.0
+
+- name: install trivy 
+  command: "{{ item }}"
+  with_items:
+      - wget http://apache.stu.edu.tw//jmeter/binaries/apache-jmeter-5.2.1.tgz
+      - tar -xf apache-jmeter-5.2.1.tgz

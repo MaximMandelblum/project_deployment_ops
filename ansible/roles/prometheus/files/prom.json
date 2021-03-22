@@ -21,7 +21,7 @@
         {
           "id": "service",
           "name": "kibana service test",
-          "args": ["systemctl", "status", "prometheus.service"],
+          "args": ["systemctl", "status", "docker.service"],
           "interval": "60s"
         }
       ]

@@ -37,9 +37,9 @@ resource "aws_elb" "prometheus" {
 
 
   listener {
-    instance_port     = 9200
+    instance_port     = 9090
     instance_protocol = "http"
-    lb_port           = 9200
+    lb_port           = 9090
     lb_protocol       = "http"
   }
 
@@ -47,7 +47,7 @@ resource "aws_elb" "prometheus" {
     healthy_threshold   = 2
     unhealthy_threshold = 5
     timeout             = 3
-    target              = "TCP:9200"
+    target              = "TCP:9090"
     interval            = 30
   }
   
