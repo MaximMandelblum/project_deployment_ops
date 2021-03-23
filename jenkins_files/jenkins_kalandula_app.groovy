@@ -26,6 +26,7 @@ node("linux1"){
                  echo "the resonse is ${response}"
                  withDockerRegistry(credentialsId: 'dockerhub.max') {
                       customImage.push()
+                      customImage.push("${BUILD_NUMBER}")
             }
         }
         else{
@@ -41,10 +42,22 @@ node("linux1"){
             git 'https://github.com/MaximMandelblum/project_deployment_ops.git'
         }
           
-        stage('Deploy pod'){
+        // stage('Deploy pod'){
             
-            kubernetesDeploy configs: 'kalandula_app.yaml,kalandula_lb.yaml', kubeConfig: [path: ''], kubeconfigId: 'kube', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+        //     kubernetesDeploy configs: 'kalandula_app.yaml,kalandula_lb.yaml', kubeConfig: [path: ''], kubeconfigId: 'kube', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
     
-        }
+        // }
+            stage('Install Cosnul on Kubernetes') {
+            withCredentials([kubeconfigFile(credentialsId: 'kube', variable: 'KUBECONFIG')]) {
+            
+            sh """
+            export KUBECONFIG=\${KUBECONFIG}
+            kubectl apply -f kalandula_app.yaml
+            kubectl apply -f kalandula_lb.yaml
+            """
+    }
+           
+        
+}
         
     }

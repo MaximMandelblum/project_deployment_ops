@@ -42,6 +42,12 @@ resource "aws_elb" "prometheus" {
     lb_port           = 9090
     lb_protocol       = "http"
   }
+  listener {
+    instance_port     = 3000
+    instance_protocol = "http"
+    lb_port           = 3000
+    lb_protocol       = "http"
+  }
 
   health_check {
     healthy_threshold   = 2
