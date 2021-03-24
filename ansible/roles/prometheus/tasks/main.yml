@@ -17,7 +17,14 @@
 
 - name: copy consul prometheus service  template
   copy:
-    dest: /etc/consul.d/kibana.json
+    dest: /etc/consul.d/prom.json
     src: prom.json
+    mode: '0755'
+  notify: restart consul service
+
+- name: copy consul grafana service  template
+  copy:
+    dest: /etc/consul.d/grafana.json
+    src: grafana.json
     mode: '0755'
   notify: restart consul service
