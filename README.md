@@ -56,13 +56,13 @@ Important: Make sure you get the nodes role arn from the currently configured co
 11. # Config Bastion:
 Edit ~/.ssh/config on local machine as /general/ssh_config. (modify the template with your pramaters)
 
-12.# Run jenkins jobs:
+12. # Run jenkins jobs:
 * Kandula app depploy
 * filebeat_deploy
 * node_exporter_deploy
 * consul_deploy
 
-13.# Stop Environment 
+13. # Stop Environment 
 * Run Jenknis job to destory all resources on Kube.
 * Make sure no pods or svc are up.
 * Run ```terrafrom/terraform destory --auto-approve
