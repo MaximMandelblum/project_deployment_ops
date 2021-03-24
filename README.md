@@ -53,3 +53,16 @@ Important: Make sure you get the nodes role arn from the currently configured co
 9.  check form kubectl get pods and kubectl get svc , to see if the app and LB service deployed .
 
 10. connect EKS public cluster ip to check the Application is up and Running .
+11. # Config Bastion:
+Edit ~/.ssh/config on local machine as /general/ssh_config. (modify the template with your pramaters)
+
+12.# Run jenkins jobs:
+* Kandula app depploy
+* filebeat_deploy
+* node_exporter_deploy
+* consul_deploy
+
+13.# Stop Environment 
+* Run Jenknis job to destory all resources on Kube.
+* Make sure no pods or svc are up.
+* Run ```terrafrom/terraform destory --auto-approve
